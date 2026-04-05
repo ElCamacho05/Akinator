@@ -10,7 +10,7 @@
 
         <div>
             <button
-                onclick = "location.href='/Akinator/game'"
+                onclick = "location.href='/Akinator/login'"
             >
                 Iniciar Sesion para Jugar
             </button>

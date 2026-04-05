@@ -1,16 +1,38 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <html>
     <body>
-        <h1>
-           Iniciar sesion
-        </h1>
+        <div>
+            <h1>
+               Iniciar sesion
+            </h1>
 
-        <input>
-            usuario
-        </input>
+            <button
+                onclick = "location.href='/Akinator'"
+            >
+                Regresar
+            </button>
+        </div>
 
-        <input>
-            contraseña
-        </input>
+        <div>
+            <label>
+                Correo
+            </label>
+
+            <input
+                type="email">
+            </input>
+        </div>
+
+        <div>
+            <label>
+                Contraseña
+            </label>
+
+            <input
+                type="password">
+            </input>
+        </div>
 
         <button
             onclick = "location.href='/Akinator/game'"
