@@ -14,31 +14,31 @@
             </button>
         </div>
 
-        <div>
-            <label>
-                Correo
-            </label>
+        <form action="/Akinator/login" method="POST">
+            <div>
+                <label>
+                    Correo
+                </label>
+                <input
+                    type="email" name="correo" required>
+                </input>
+            </div>
 
-            <input
-                type="email">
-            </input>
-        </div>
+            <div>
+                <label>
+                    Contraseña
+                </label>
+                <input
+                    type="password" name="password" required>
+                </input>
+            </div>
 
-        <div>
-            <label>
-                Contraseña
-            </label>
-
-            <input
-                type="password">
-            </input>
-        </div>
-
-        <button
-            onclick = "location.href='/Akinator/game'"
-        >
-            Log In
-        </button>
+            <button
+                type="submit"
+            >
+                Log In
+            </button>
+        </form>
 
         <p>
             No tienes cuenta? Registrate ahora

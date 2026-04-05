@@ -39,4 +39,14 @@ public class Nodo {
     public Nodo getNo() {
         return this.nodo_izq;
     }
+
+    public Boolean esAtributo() {
+        try{
+            NodoAtributo self = (NodoAtributo) this;
+            return true;
+        }
+        catch (ClassCastException e) {
+            return false;
+        }
+    }
 }

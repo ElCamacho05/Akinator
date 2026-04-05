@@ -18,4 +18,14 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login.jsp");
         requestDispatcher.forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String correo = req.getParameter("correo");
+        String nombreUsuario = correo.split("@")[0];
+
+        req.getSession().setAttribute("usuarioLoggeado", nombreUsuario);
+
+        resp.sendRedirect(req.getContextPath() + "/game");
+    }
 }

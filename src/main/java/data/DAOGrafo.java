@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class DAOGrafo {
-    private List<Nodo> nodos;
+    private static List<Nodo> nodos;
 
-    private List<Nodo> obtenerEntidades() {
-        String query = "select * from entidades";
+    private static List<Nodo> obtenerEntidades() {
+        String query = "select * from Entidades";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -47,9 +47,9 @@ public class DAOGrafo {
         return nodos;
     }
 
-    private List<Atributo> obtenerAtributos() {
+    private static List<Atributo> obtenerAtributos() {
         List<Atributo> atributos = new ArrayList<>();
-        String query = "select * from atributos";
+        String query = "select * from Atributos";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -78,8 +78,8 @@ public class DAOGrafo {
         return atributos;
     }
 
-    private List<Nodo> obtenerNodosAtributos() {
-        String query = "select * from nodoatributo order by id_nodo asc";
+    private static List<Nodo> obtenerNodosAtributos() {
+        String query = "select * from NodoAtributo order by id_nodo asc";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -105,19 +105,19 @@ public class DAOGrafo {
                 NoAtr.setAtributo(atr);
 
                 int id_nodo_der = rs.getInt("nodo_der");
-                Nodo nodo_der = this.nodos.stream()
+                Nodo nodo_der = nodos.stream()
                                 .filter(nodo->id_nodo_der == nodo.getId_nodo())
                                         .findFirst()
                                                 .orElse(null);
                 NoAtr.setNodo_der(nodo_der);
                 int id_nodo_izq = rs.getInt("nodo_izq");
-                Nodo nodo_izq = this.nodos.stream()
+                Nodo nodo_izq = nodos.stream()
                         .filter(nodo->id_nodo_izq == nodo.getId_nodo())
                         .findFirst()
                         .orElse(null);
                 NoAtr.setNodo_izq(nodo_izq);
 
-                this.nodos.add(NoAtr);
+                nodos.add(NoAtr);
             }
         } catch (
                 SQLException ex) {
@@ -127,11 +127,11 @@ public class DAOGrafo {
             DBConnection.close(ps);
             DBConnection.close(conn);
         }
-        return this.nodos;
+        return nodos;
     }
 
-    public Nodo obtenerGrafo() {
-        this.nodos = new ArrayList<>();
+    public static Nodo obtenerGrafo() {
+        nodos = new ArrayList<>();
 
         obtenerEntidades();
         obtenerNodosAtributos();
@@ -140,7 +140,7 @@ public class DAOGrafo {
             return null;
         }
         else {
-            return nodos.get(this.nodos.size() - 1);
+            return nodos.get(nodos.size() - 1);
         }
     }
 }

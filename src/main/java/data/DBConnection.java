@@ -7,7 +7,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 public class DBConnection {
     private static String user = "postgres";
     private static String pswd = "123456";
-    private static String bd = "BDEmpleado";
+    private static String bd = "Akinator";
     private static String server = "jdbc:postgresql://localhost:5432/" + bd;
     private static String driver = "org.postgresql.Driver";
 
