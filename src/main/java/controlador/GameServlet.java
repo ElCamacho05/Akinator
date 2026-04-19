@@ -51,6 +51,16 @@ public class GameServlet extends HttpServlet{
 
         NodoAtributo noAtr;
 
+        // Para saber si ya se acabo el juego y se ha seleccionado la opcion de reiniciarlo
+        Boolean fin = (Boolean) session.getAttribute("fin");
+        String restartFlag = (String) req.getParameter("reiniciar");
+
+        if (fin && "reiniciar".equals(restartFlag)) {
+            reiniciar(req, resp);
+            return;
+        }
+
+        // recorrido del arbol
         if ("si".equals(respuesta)) {
             nodoActual = nodoActual.getNodo_der();
 
@@ -90,5 +100,10 @@ public class GameServlet extends HttpServlet{
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/game.jsp");
         requestDispatcher.forward(req, resp);
+    }
+
+    private void reiniciar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // funcion de apoyo para reiniciar el juego
+        doGet(req, resp);
     }
 }
