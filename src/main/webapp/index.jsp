@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="styles.css" >
+    </head>
     <body>
         <h1>
            ¡Bienvenido a Akinator!
@@ -8,7 +11,7 @@
             Akinator can read your mind and tell you what character you are thinking of, as if by magic.
         </h2>
 
-        <div>
+        <div class="horizontal-center-array">
             <button
                 onclick = "location.href='/Akinator/login'"
             >
