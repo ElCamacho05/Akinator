@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import data.DAOUsuario;
+import modelo.Usuario;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+    // Realiza las llamadas a la base de datos correspondientes y
+    // gestiona loggeos exitosos o fallidos
     public static final long serialversionUID = 1L;
 
     @Override
@@ -23,9 +28,19 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String correo = req.getParameter("correo");
         String nombreUsuario = correo.split("@")[0];
+        String contrasenia = req.getParameter("password");
 
-        req.getSession().setAttribute("usuarioLoggeado", nombreUsuario);
+        Usuario usuario = DAOUsuario.obtenerUsuario(correo, contrasenia);
+        System.out.println(usuario);
 
-        resp.sendRedirect(req.getContextPath() + "/game");
+        if (usuario != null) { // inicio exitoso
+            req.getSession().setAttribute("usuarioLoggeado", usuario.getNombre());
+            resp.sendRedirect(req.getContextPath() + "/game");
+        }
+        else { // inicio fallido
+            req.getSession().setAttribute("usuarioLoggeado", false); // flag de fallo en acceso
+            resp.sendRedirect(req.getContextPath() + "/login");
+        }
+
     }
 }
