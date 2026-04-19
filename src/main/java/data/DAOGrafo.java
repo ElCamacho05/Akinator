@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class DAOGrafo {
+    // Lista de todos los nodos del grafo, tanto atributos como entidades
     private static List<Nodo> nodos;
 
     private static List<Nodo> obtenerEntidades() {
+        // Funcion que obtiene las entidades de la BD
         String query = "select * from Entidades";
 
         Connection conn = null;
@@ -25,6 +27,7 @@ public class DAOGrafo {
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                // construccion de los nodos de entidad y agregacion a la lista
                 NodoEntidad NoEnt = new NodoEntidad();
 
                 NoEnt.setId_nodo(rs.getInt("id_nodo"));
@@ -36,8 +39,7 @@ public class DAOGrafo {
 
                 nodos.add(NoEnt);
             }
-        } catch (
-                SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             DBConnection.close(rs);
@@ -48,6 +50,13 @@ public class DAOGrafo {
     }
 
     private static List<Atributo> obtenerAtributos() {
+        // funcion para obtener todos los atributos de la base de datos
+        // NO se obtienen los NodosAtributo,
+        // sino unicamente los atributos guardados en la BD
+
+        // En la funcion obtenerNodosAtributos se hace uso de esta para la
+        // construccion de los nodos compuestos de atributos
+
         List<Atributo> atributos = new ArrayList<>();
         String query = "select * from Atributos";
 
@@ -67,8 +76,7 @@ public class DAOGrafo {
 
                 atributos.add(atr);
             }
-        } catch (
-                SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             DBConnection.close(rs);
@@ -79,6 +87,12 @@ public class DAOGrafo {
     }
 
     private static List<Nodo> obtenerNodosAtributos() {
+        // Construccion y agregacion a la lista de nodos de los
+        // NodosAtributo de la base de datos
+
+        // Ademas, se hace el enlace entre nodos atributo y nodos entidades por su
+        // referencia desde la BD, formando el grafo
+
         String query = "select * from NodoAtributo order by id_nodo asc";
 
         Connection conn = null;
@@ -119,8 +133,7 @@ public class DAOGrafo {
 
                 nodos.add(NoAtr);
             }
-        } catch (
-                SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             DBConnection.close(rs);
@@ -131,6 +144,7 @@ public class DAOGrafo {
     }
 
     public static Nodo obtenerGrafo() {
+        // Funcion que agrupa la logica de formacion del grafo
         nodos = new ArrayList<>();
 
         obtenerEntidades();

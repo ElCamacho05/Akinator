@@ -22,6 +22,7 @@ public class GameServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // establecer los atributos iniciales del juego
         HttpSession session = req.getSession();
 
         Nodo nodoActual = DAOGrafo.obtenerGrafo();
@@ -62,14 +63,18 @@ public class GameServlet extends HttpServlet{
 
         // recorrido del arbol
         if ("si".equals(respuesta)) {
+            // Si: nodo de la derecha
             nodoActual = nodoActual.getNodo_der();
 
             if (nodoActual.esAtributo()) {
+                // checa si sigue siendo un nodo de tipo Atributo, o si es un nodo de tipo Entidad
                 noAtr = (NodoAtributo) nodoActual;
                 session.setAttribute("pregunta", noAtr.getAtributo().getNombre_atributo());
                 session.setAttribute("fin", false);
             }
             else {
+                // como no es un nodo de tipo atributo (ya es una hoja, es decir, una entidad,
+                // se pone la respuesta y se establece la flag de fin del juego)
                 session.setAttribute("pregunta", "No mas preguntas!!!, tengo tu respuesta");
 
                 NodoEntidad noEntidad = (NodoEntidad) nodoActual;
@@ -80,6 +85,7 @@ public class GameServlet extends HttpServlet{
 
         }
         else {
+            // No: Nodo de la izquierda
             nodoActual = nodoActual.getNodo_izq();
 
             if (nodoActual.esAtributo()) {

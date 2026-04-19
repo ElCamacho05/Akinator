@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 
 @WebServlet("/about")
 public class AboutServlet extends HttpServlet{
+    // Servlet que solo muestra la pagina de informacion del proyecto
     public static final long serialVersionUID = 1L;
 
     @Override
